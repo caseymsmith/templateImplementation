@@ -1,0 +1,105 @@
+//October 13, 2015
+
+
+
+//vectorAux.cpp
+
+#include "vectorAux.h"
+#include <vector>
+#include <algorithm>
+#include <iostream>
+
+//binary search 
+
+template <typename T>
+void removeDup(std::vector<T> & v)
+{
+  using namespace std; 
+  typename vector<T>::iterator target; 
+  typename vector<T>::iterator check; 
+  
+  for(target=v.begin(); target!=v.end(); target++){
+    for (check=target+1; check!=v.end(); check++){
+      if (*check==*target) {
+	v.erase(check);
+	check--;
+      }
+    }
+  }
+}
+//vector as linked list use iterator 
+
+template <typename T>
+unsigned seqVectSearch(const std::vector<T> & v, unsigned first, 
+		       unsigned last, const T& target)
+{
+    for(int i=first; i<last;i++){
+      if (v[i]==target)
+	return i;
+     }
+  ///  Complete the code.   Use the text's sequential search
+  ///  algorithm for arrays as a model.
+  return last;           // return last if target not found
+}
+//vector as an array 
+
+template <typename T>
+void writeVector(const std::vector<T> & v)
+{
+  unsigned i;
+  unsigned n = v.size();
+
+  for (i = 0; i < n; i++)
+    std::cout << v[i] << ' ';
+  std::cout << std::endl;
+}
+
+
+
+
+
+
+
+
+//VectorAux.h 
+
+#ifndef vectoraux_h
+#define vectoraux_h
+
+#include <vector>
+#include <algorithm>
+#include <iostream>
+
+template <typename T>
+void removeDup(std::vector<T> & v);
+//Precondition: v is nonempty
+//Postcondition: duplicates are removed from v
+
+template <typename T>
+unsigned seqVectSearch(const std::vector<T> & v, unsigned first, 
+		       unsigned last, const T& target);
+//Purpose: search for target in specified range of elements of v
+
+template <typename T>
+void writeVector(const std::vector<T> & v);
+//Purpose: displays vector v
+  
+#include "vectorAux.cpp"
+#endif
+
+
+
+
+
+
+Sample Output
+
+csmith20@Pascal:~/COSClab> g++ -o vect vectorDriver.cpp 
+csmith20@Pascal:~/COSClab> ./vect 
+Testing removeDup
+Original vector is  1 7 2 7 9 1 2 8 9                                                                     
+Vector with duplicates removed is  1 7 2 9 8                                                              
+
+1 7 2 9 8                                                                                                 
+csmith20@Pascal:~/COSClab>                                                                           
+
